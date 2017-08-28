@@ -1,0 +1,7 @@
+<h1>Articles</h1>
+
+<ul>
+  <% @questions.each do |question|%>
+    <li><%= link_to question.name, question%></li>
+  <% end %>
+</ul>
