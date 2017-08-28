@@ -1,4 +1,33 @@
+<p id='notice'><%= notice %></p>
 <h1><%= @question.name %></h1>
+<h3><%= link_to "EDIT", edit_question_path(@question.id) %></h3>
+<h3><%= link_to "DESTROY", @question, method: :delete, data: {confirm: 'Are you sure?'} %></h3>
 
 <h3>Description</h3>
 <p><%= @question.description %></p>
+
+<h1>Answers</h1>
+
+<%= form_for [@question, @answer] do |f| %>
+  <% if @answer.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@answer.errors.count, "error") %> prohibited this answer from being saved:</h2>
+
+      <ul>
+      <% @answer.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%= f.label :description %>
+  <%= f.text_field :description %><br />
+  <br />
+  <%= f.submit %>
+<% end %>
+
+<ul>
+  <% @question.answers.order("created_at DESC").each do |answer|%>
+    <li><%= answer.description %></li>
+  <% end %>
+</ul>
